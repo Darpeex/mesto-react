@@ -1,5 +1,7 @@
 import React from 'react';
-import logo from '../images/avatarBlack.jpg';
+import { Header } from './Header';
+import { Main } from './Main';
+import { Footer } from './Footer';
 import '../index.css';
 
 function App() {
@@ -8,51 +10,13 @@ function App() {
       <div className="page">
 
 {/* <!-- Шапка сайта --> */}
-    <header className="header page__header-position">
-      <div className="header__logo"></div>
-    </header>
+        <Header />
 
 {/* <!-- Основное содержимое страницы --> */}
-    <main className="content">
-
-{/* <!-- Секция, блок profile --> */}
-      <section className="profile page__profile-position section">
-        <div className="profile__info">
-          <div className="profile__avatar">
-            <img className="profile__avatar-image" src={logo} alt='Аватарка'/> {/* <!-- https://cbgd.ask.fm/694/26f2a/c61d/4cef/af6a/e05ba6c79ce6/original/975391.jpg --> */}
-            <button className="profile__avatar-button" type="button" aria-label="Обновить аватарку"></button>
-          </div>
-          <div className="profile__content">
-            <h1 className="profile__name">Человек</h1>
-            <p className="profile__activity">Исследователь мира</p>
-            <button className="profile__button profile__button_action_edit" type="button" aria-label="Редактировать"></button>
-          </div>
-        </div>
-        <button className="profile__button profile__button_action_add" type="button" aria-label="Добавить"></button>
-      </section>
-
-{/* <!-- Секция, блок elements --> */}
-      <section id="elements" className="elements page__elements-position section">
-        <template id="template">
-          <article className="elements-block">
-            <img src="#" alt="Карточка" className="elements-block__image"/>
-            <button className="elements-block__delete-button"></button>
-            <div className="elements-block__text">
-              <h2 className="elements-block__name"></h2>
-              <div className="elements-block__like-container">
-                <button className="elements-block__like-button" type="button" aria-label="Лайк"></button>
-                <span className="elements-block__like-count"></span>
-              </div>
-            </div>
-          </article>
-        </template>
-      </section>
-    </main>
-
+        <Main />
+    
 {/* <!--Подвал сайта, блок footer --> */}
-    <footer className="footer page__footer-position section">
-          <p className="footer__copyright">&copy;&nbsp;2023&nbsp;Mesto</p>
-    </footer>
+        <Footer />
   </div>
 
 {/* <!-- Попап редактирования профиля --> */}
