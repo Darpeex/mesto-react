@@ -1,3 +1,5 @@
+// Главная часть сайта
+
 import logo from '../images/avatarBlack.jpg';
 
 export function Main() {
@@ -17,7 +19,7 @@ export function Main() {
   return (
     <main className="content">
 
-{/* <!-- Секция, блок profile --> */}
+{/* Секция, блок profile */}
       <section className="profile page__profile-position section">
         <div className="profile__info">
           <div className="profile__avatar">
@@ -33,7 +35,7 @@ export function Main() {
         <button className="profile__button profile__button_action_add" type="button" onClick={handleAddPlaceClick} aria-label="Добавить"></button>
       </section>
 
-{/* <!-- Секция, блок elements --> */}
+{/* Секция, блок elements */}
       <section id="elements" className="elements page__elements-position section">
         <template id="template">
           <article className="elements-block">

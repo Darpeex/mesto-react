@@ -1,4 +1,4 @@
-/* Шапка сайта */
+// Шапка сайта
 
 export function Header() {
   return (
