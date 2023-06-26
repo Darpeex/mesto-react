@@ -1,4 +1,4 @@
-// Главная часть сайта
+// Основное содержимое страницы
 
 import logo from '../images/avatarBlack.jpg';
 

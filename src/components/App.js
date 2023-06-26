@@ -2,6 +2,7 @@ import React from 'react';
 import { Header } from './Header';
 import { Main } from './Main';
 import { Footer } from './Footer';
+import { ImagePopup } from './ImagePopup';
 import '../index.css';
 
 function App() {
@@ -15,8 +16,11 @@ function App() {
 {/* Основное содержимое страницы */}
         <Main />
     
-{/* Подвал сайта, блок footer */}
+{/* Подвал сайта */}
         <Footer />
+
+{/* Попап открытия карточки */}
+        <ImagePopup />
 
       </div>
 
@@ -111,15 +115,6 @@ function App() {
         </form>
       </div>
     </div>
-
-{/* Попап открытия карточки */}
-      <div id="openCard" className="popup">
-        <div className="popup__image-desription">
-          <img className="popup__image-card" src="#" alt="Фотография из карточки"/>
-          <p className="popup__image-subtitle"></p>
-          <button className="popup__button popup__button_action_close" type="button" aria-label="Закрыть"></button>
-        </div>
-      </div>
 
     </div>
   );
