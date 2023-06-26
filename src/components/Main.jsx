@@ -8,11 +8,11 @@ export function Main() {
     popup.classList.add('popup_opened');
   }
   const handleEditProfileClick = () => {
-    const popup = document.querySelector('#updateAvatar');
+    const popup = document.querySelector('#editProfile');
     popup.classList.add('popup_opened');
   }
   const handleAddPlaceClick = () => {
-    const popup = document.querySelector('#updateAvatar');
+    const popup = document.querySelector('#addCard');
     popup.classList.add('popup_opened');
   }
 
