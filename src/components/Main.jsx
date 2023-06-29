@@ -35,6 +35,7 @@ export function Main({ onEditAvatar, onEditProfile, onAddPlace }) { // Пере�
       }));
       setCards(cardsFromApi)
     })
+    .catch(err => console.log(`Ошибка: ${err}`))
   }, []);
 
   return (
