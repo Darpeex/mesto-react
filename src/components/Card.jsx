@@ -2,11 +2,10 @@
 import React from "react"
 
 export function Card({ cards }) {
-  console.log(cards)
   return (
 //  Секция, блок elements
     <section id="elements" className="elements page__elements-position section">
-      {cards.map(card => 
+      {cards.map(card => // Пробегаем по переданному массиву и возвращаем целые карточки при помощи разметки
         <article className="elements-block" key={card.id}>
           <img src={card.link} alt={card.name} className="elements-block__image"/>
           <button className="elements-block__delete-button"></button>

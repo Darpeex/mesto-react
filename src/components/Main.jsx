@@ -37,7 +37,6 @@ export function Main({ onEditAvatar, onEditProfile, onAddPlace }) { // Пере�
     })
     .catch(err => console.log(`Ошибка: ${err}`))
   }, []);
-  // console.log(cards)
 
   return (
     <main className="content">
@@ -57,6 +56,7 @@ export function Main({ onEditAvatar, onEditProfile, onAddPlace }) { // Пере�
         </div>
         <button className="profile__button profile__button_action_add" type="button" onClick={onAddPlace} aria-label="Добавить"></button> {/* onClick - по клику, вызывается функция */}
       </section>
+      {/* В компонент Card передаём массив карточек с сервера */}
       <Card cards={cards} />
     </main>
   )
