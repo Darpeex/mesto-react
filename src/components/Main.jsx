@@ -1,11 +1,25 @@
 // Основное содержимое страницы
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import logo from '../images/avatarBlack.jpg';
+import { api } from '../utils/Api';
 
 export function Main({ onEditAvatar, onEditProfile, onAddPlace }) { // Передаются функции открытия попапов из App.js
   const [userAvatar, setUserAvatar] = useState(logo);
   const [userName, setUserName] = useState('Человек');
   const [userDescription, setUserDescription] = useState('Исследователь мира');
+
+// Делаем запрос с сервера и устанавливаем данные в профиль
+  useEffect(() => {
+    api.getUserInfo().then(data => {
+      console.log(data)
+      setUserAvatar(data.avatar)
+      setUserName(data.name)
+      setUserDescription(data.about)
+    })
+    return () => {
+      console.log()
+    };
+  }, []); // Обновление по useContext
 
   return (
     <main className="content">
@@ -20,10 +34,10 @@ export function Main({ onEditAvatar, onEditProfile, onAddPlace }) { // Пере�
           <div className="profile__content">
             <h1 className="profile__name">{userName}</h1>
             <p className="profile__activity">{userDescription}</p>
-            <button className="profile__button profile__button_action_edit" type="button" onClick={onAddPlace} aria-label="Редактировать"></button> {/* onClick - по клику, вызывается функция */}
+            <button className="profile__button profile__button_action_edit" type="button" onClick={onEditProfile} aria-label="Редактировать"></button> {/* onClick - по клику, вызывается функция */}
           </div>
         </div>
-        <button className="profile__button profile__button_action_add" type="button" onClick={onEditProfile} aria-label="Добавить"></button> {/* onClick - по клику, вызывается функция */}
+        <button className="profile__button profile__button_action_add" type="button" onClick={onAddPlace} aria-label="Добавить"></button> {/* onClick - по клику, вызывается функция */}
       </section>
 
 {/* Секция, блок elements */}
