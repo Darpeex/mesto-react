@@ -4,7 +4,7 @@ import logo from '../images/avatarBlack.jpg';
 import { Card } from './Card';
 import { api } from '../utils/Api';
 
-export function Main({ onEditAvatar, onEditProfile, onAddPlace }) { // Передаются функции открытия попапов из App.js
+export function Main({ onEditAvatar, onEditProfile, onAddPlace, onCardClick }) { // Передаются функции открытия попапов из App.js
   const [userAvatar, setUserAvatar] = useState(logo);
   const [userName, setUserName] = useState('Человек');
   const [userDescription, setUserDescription] = useState('Исследователь мира');
@@ -57,7 +57,7 @@ export function Main({ onEditAvatar, onEditProfile, onAddPlace }) { // Пере�
         <button className="profile__button profile__button_action_add" type="button" onClick={onAddPlace} aria-label="Добавить"></button> {/* onClick - по клику, вызывается функция */}
       </section>
       {/* В компонент Card передаём массив карточек с сервера */}
-      <Card cards={cards} />
+      <Card cards={cards} onCardClick={onCardClick} />
     </main>
   )
 }

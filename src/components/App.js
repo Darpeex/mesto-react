@@ -11,6 +11,7 @@ function App() {
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
+  const [selectedCard, setSelectedCard] = useState(false);
 
 // Отвечает за закрытие попапов при нажатии ESC
   useEffect(() => {
@@ -39,6 +40,10 @@ function App() {
     setIsEditAvatarPopupOpen(false);
     setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
+    setSelectedCard(false);
+  }
+  const handleCardClick = (card) => {
+    setSelectedCard(card);
   }
 
 // По сути происходит отрисовка компонентов?
@@ -54,6 +59,8 @@ function App() {
 					onEditProfile={handleEditProfileClick} // Передаём в Main функцию открытия попапа редактирования профиля
 					onAddPlace={handleAddPlaceClick} // Передаём в Main функцию открытия попапа добавления карточки
 					onEditAvatar={handleEditAvatarClick} // Передаём в Main функцию открытия попапа редактирования аватарки
+					onCardClick={handleCardClick} // Передаём в Main функцию открытия попапа редактирования аватарки
+          selectedCard={selectedCard} // Передаём в Main функцию открытия попапа редактирования аватарки
 				/>
     
 {/* Подвал сайта */}
@@ -72,7 +79,7 @@ function App() {
         {/* <ConfirmationPopup open={isConfirmationPopupOpen} /> */}
 
 {/* Попап открытия карточки */}
-        <ImagePopup />
+        <ImagePopup card={selectedCard} onClose={closeAllPopups} />
 
       </div>
     </div>
