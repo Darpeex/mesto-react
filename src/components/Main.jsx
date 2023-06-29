@@ -1,6 +1,7 @@
 // Основное содержимое страницы
 import { useState, useEffect } from 'react';
 import logo from '../images/avatarBlack.jpg';
+import { Card } from './Card';
 import { api } from '../utils/Api';
 
 export function Main({ onEditAvatar, onEditProfile, onAddPlace }) { // Передаются функции открытия попапов из App.js
@@ -12,7 +13,6 @@ export function Main({ onEditAvatar, onEditProfile, onAddPlace }) { // Пере�
 // Делаем запрос с сервера и устанавливаем данные в профиль
   useEffect(() => {
     api.getUserInfo().then(data => {
-      console.log(data)
       setUserAvatar(data.avatar)
       setUserName(data.name)
       setUserDescription(data.about)
@@ -37,6 +37,7 @@ export function Main({ onEditAvatar, onEditProfile, onAddPlace }) { // Пере�
     })
     .catch(err => console.log(`Ошибка: ${err}`))
   }, []);
+  // console.log(cards)
 
   return (
     <main className="content">
@@ -45,7 +46,7 @@ export function Main({ onEditAvatar, onEditProfile, onAddPlace }) { // Пере�
       <section className="profile page__profile-position section">
         <div className="profile__info">
           <div className="profile__avatar">
-            <img className="profile__avatar-image" src={userAvatar} alt='Аватарка'/>
+            <img className="profile__avatar-image" src={userAvatar} alt="Аватарка"/>
             <button className="profile__avatar-button" type="button" onClick={onEditAvatar} aria-label="Обновить аватарку"></button> {/* onClick - по клику, вызывается функция */}
           </div>
           <div className="profile__content">
@@ -56,23 +57,7 @@ export function Main({ onEditAvatar, onEditProfile, onAddPlace }) { // Пере�
         </div>
         <button className="profile__button profile__button_action_add" type="button" onClick={onAddPlace} aria-label="Добавить"></button> {/* onClick - по клику, вызывается функция */}
       </section>
-
-{/* Секция, блок elements */}
-      <section id="elements" className="elements page__elements-position section">
-        {cards.map(card => (
-          <article className="elements-block" key={card.id}>
-            <img src={card.link} alt={card.name} className="elements-block__image"/>
-            <button className="elements-block__delete-button"></button>
-            <div className="elements-block__text">
-              <h2 className="elements-block__name">{card.name}</h2>
-              <div className="elements-block__like-container">
-                <button className="elements-block__like-button" type="button" aria-label="Лайк"></button>
-                <span className="elements-block__like-count">{card.likes.length}</span>
-              </div>
-            </div>
-          </article>
-        ))}
-      </section>
+      <Card cards={cards} />
     </main>
   )
 }
