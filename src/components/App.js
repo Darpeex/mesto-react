@@ -1,5 +1,5 @@
 import React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Header } from './Header';
 import { Main } from './Main';
 import { Footer } from './Footer';
@@ -12,6 +12,18 @@ function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
 
+  useEffect(() => {
+    const handleEscClose = (e) => {
+      if (e.key === 'Escape') {
+        closeAllPopups();
+      }
+    };
+    document.addEventListener('keydown', handleEscClose);
+    return () => {
+      document.removeEventListener('keydown', handleEscClose);
+    };
+  }, []);
+
   const handleEditAvatarClick = () => {
     setIsEditAvatarPopupOpen(true);
   }
@@ -20,6 +32,11 @@ function App() {
   }
   const handleAddPlaceClick = () => {
     setIsAddPlacePopupOpen(true);
+  }
+	const closeAllPopups = () => {
+    setIsEditAvatarPopupOpen(false);
+    setIsEditProfilePopupOpen(false);
+    setIsAddPlacePopupOpen(false);
   }
 
   return (
@@ -40,13 +57,13 @@ function App() {
         <Footer />
 
 {/* Попап редактирования аватарки */}
-        <EditAvatarPopup isOpen={isEditAvatarPopupOpen} />
+        <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} />
 
 {/* Попап редактирования профиля */}
-				<EditProfilePopup isOpen={isEditProfilePopupOpen} />
+				<EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} />
 
 {/* Попап добавления карточки */}
-        <AddPlacePopup isOpen={isAddPlacePopupOpen} />
+        <AddPlacePopup isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} />
 
 {/* Попап подтверждения удаления */}
         {/* <ConfirmationPopup open={isConfirmationPopupOpen} /> */}

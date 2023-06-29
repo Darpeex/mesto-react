@@ -1,7 +1,7 @@
 // Попап обновления аватарки профиля
-export const EditAvatarPopup = ({ isOpen }) => {
+export const EditAvatarPopup = ({ isOpen, onClose }) => {
   return(
-    <PopupWithForm id="#updateAvatar" formId="#updateAvatar" title="Обновить аватар" name="updateAvatar" text="Сохранить" isOpen={isOpen ? "popup_opened" : ""}>
+    <PopupWithForm id="#updateAvatar" formId="#updateAvatar" title="Обновить аватар" name="updateAvatar" text="Сохранить" isOpen={isOpen} onClose={onClose} >
       <input
       name="avatar"
       id="linkAvatar" 
@@ -16,9 +16,9 @@ export const EditAvatarPopup = ({ isOpen }) => {
   )
 }
   // Попап редактирования профиля
-export const EditProfilePopup = ({ isOpen }) => {
+export const EditProfilePopup = ({ isOpen, onClose }) => {
   return(
-    <PopupWithForm id="#editProfile" formId="#editProfileForm" title="Редактировать профиль" name="editForm" text="Сохранить" isOpen={isOpen ? "popup_opened" : ""}>
+    <PopupWithForm id="#editProfile" formId="#editProfileForm" title="Редактировать профиль" name="editForm" text="Сохранить" isOpen={isOpen} onClose={onClose} >
       <input
         name="name"
         id="user-name"
@@ -43,9 +43,9 @@ export const EditProfilePopup = ({ isOpen }) => {
   )
 }
 // Попап добавления карточки
-export const AddPlacePopup = ({ isOpen }) => {
+export const AddPlacePopup = ({ isOpen, onClose }) => {
   return(
-    <PopupWithForm id="#addCard" formId="#creationForm" title="Новое место" name="creationForm" text="Создать" isOpen={isOpen ? "popup_opened" : ""}>
+    <PopupWithForm id="#addCard" formId="#creationForm" title="Новое место" name="creationForm" text="Создать" isOpen={isOpen} onClose={onClose} >
         <input 
           name="name"
           id="name-card"
@@ -68,9 +68,9 @@ export const AddPlacePopup = ({ isOpen }) => {
   )
 }
 
-export const ConfirmationPopup = ({ isOpen }) => {
+export const ConfirmationPopup = ({ isOpen, onClose }) => {
   return(
-    <PopupWithForm id="#confirmationPopup" formId="confirmationPopup" title="Вы уверены?" name="confirmationPopup" text="Да" isOpen={isOpen ? "popup_opened" : ""}>
+    <PopupWithForm id="#confirmationPopup" formId="confirmationPopup" title="Вы уверены?" name="confirmationPopup" text="Да" isOpen={isOpen} onClose={onClose} >
     </PopupWithForm>
   )
 }
@@ -78,10 +78,10 @@ export const ConfirmationPopup = ({ isOpen }) => {
 // Общий компонент попапов
 export function PopupWithForm(props) {
   return (
-    <div id={props.id} className={`popup ${props.isOpen}`}>
-      <div className="popup__container">
+    <div id={props.id} className={`popup ${props.isOpen ? "popup_opened" : ""}`} onClick={props.onClose}>
+      <div className="popup__container" onClick={(e) => e.stopPropagation()} >
         <h2 className="popup__title">{props.title}</h2>
-        <button className="popup__button popup__button_action_close" type="button" aria-label="Закрыть"></button>
+        <button className="popup__button popup__button_action_close" type="button" onClick={props.onClose} aria-label="Закрыть"></button>
         <form id={`popup__${props.formId}`} className={`popup__form popup__${props.name}`} name="form-popup" noValidate>
           {props.children}
           <button className="button popup__button popup__button_action_save popup__button_valid" type="submit">{props.text}</button>
