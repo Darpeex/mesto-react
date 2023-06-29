@@ -7,6 +7,7 @@ export function Main({ onEditAvatar, onEditProfile, onAddPlace }) { // Пере�
   const [userAvatar, setUserAvatar] = useState(logo);
   const [userName, setUserName] = useState('Человек');
   const [userDescription, setUserDescription] = useState('Исследователь мира');
+  const [cards, setCards] = useState([]);
 
 // Делаем запрос с сервера и устанавливаем данные в профиль
   useEffect(() => {
@@ -16,10 +17,25 @@ export function Main({ onEditAvatar, onEditProfile, onAddPlace }) { // Пере�
       setUserName(data.name)
       setUserDescription(data.about)
     })
+    .catch(err => console.log(`Ошибка: ${err}`))
     return () => {
       console.log()
     };
   }, []); // Обновление по useContext
+
+// Запрос на сервер для получения данных карточки
+  useEffect(() => {
+    api.getInitialCards().then(data => {
+      const cardsFromApi = data.map(item => ({
+        id: item._id,
+        name: item.name,
+        link: item.link,
+        owner: item.owner,
+        linkes: item.likes
+      }));
+      setCards(cardsFromApi)
+    })
+  }, []);
 
   return (
     <main className="content">
@@ -42,19 +58,19 @@ export function Main({ onEditAvatar, onEditProfile, onAddPlace }) { // Пере�
 
 {/* Секция, блок elements */}
       <section id="elements" className="elements page__elements-position section">
-        <template id="template">
-          <article className="elements-block">
-            <img src="#" alt="Карточка" className="elements-block__image"/>
+        {cards.map(card => (
+          <article className="elements-block" key={card.id}>
+            <img src={card.link} alt={card.name} className="elements-block__image"/>
             <button className="elements-block__delete-button"></button>
             <div className="elements-block__text">
-              <h2 className="elements-block__name">#</h2>
+              <h2 className="elements-block__name">{card.name}</h2>
               <div className="elements-block__like-container">
                 <button className="elements-block__like-button" type="button" aria-label="Лайк"></button>
-                <span className="elements-block__like-count"></span>
+                <span className="elements-block__like-count">{card.likes}</span>
               </div>
             </div>
           </article>
-        </template>
+        ))}
       </section>
     </main>
   )
