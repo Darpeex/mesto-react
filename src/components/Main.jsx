@@ -1,7 +1,12 @@
 // Основное содержимое страницы
+import { useState } from 'react';
 import logo from '../images/avatarBlack.jpg';
 
-export function Main({ onEditProfile, onAddPlace, onEditAvatar }) { // Передаются функции открытия попапов из App.js
+export function Main({ onEditAvatar, onEditProfile, onAddPlace }) { // Передаются функции открытия попапов из App.js
+  const [userAvatar, setUserAvatar] = useState(logo);
+  const [userName, setUserName] = useState('Человек');
+  const [userDescription, setUserDescription] = useState('Исследователь мира');
+
   return (
     <main className="content">
 
@@ -9,12 +14,12 @@ export function Main({ onEditProfile, onAddPlace, onEditAvatar }) { // Пере�
       <section className="profile page__profile-position section">
         <div className="profile__info">
           <div className="profile__avatar">
-            <img className="profile__avatar-image" src={logo} alt='Аватарка'/>
+            <img className="profile__avatar-image" src={userAvatar} alt='Аватарка'/>
             <button className="profile__avatar-button" type="button" onClick={onEditAvatar} aria-label="Обновить аватарку"></button> {/* onClick - по клику, вызывается функция */}
           </div>
           <div className="profile__content">
-            <h1 className="profile__name">Человек</h1>
-            <p className="profile__activity">Исследователь мира</p>
+            <h1 className="profile__name">{userName}</h1>
+            <p className="profile__activity">{userDescription}</p>
             <button className="profile__button profile__button_action_edit" type="button" onClick={onAddPlace} aria-label="Редактировать"></button> {/* onClick - по клику, вызывается функция */}
           </div>
         </div>
