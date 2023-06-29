@@ -1,17 +1,18 @@
-import React from 'react';
-import { useState, useEffect } from 'react';
+import React from 'react'; // Библиотеки реакт
+import { useState, useEffect } from 'react'; // Хуки реакт
 import { Header } from './Header';
 import { Main } from './Main';
 import { Footer } from './Footer';
 import { ImagePopup } from './ImagePopup';
-import { EditAvatarPopup, EditProfilePopup, AddPlacePopup, ConfirmationPopup } from './PopupWithForm';
-import '../index.css';
+import { EditAvatarPopup, EditProfilePopup, AddPlacePopup } from './PopupWithForm';
+import '../index.css'; // Файлы со стилями
 
 function App() {
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
 
+// Отвечает за закрытие попапов при нажатии ESC
   useEffect(() => {
     const handleEscClose = (e) => {
       if (e.key === 'Escape') {
@@ -24,6 +25,7 @@ function App() {
     };
   }, []);
 
+// Функции, меняющие состояния попапов (true - открыт, false - закрыт)
   const handleEditAvatarClick = () => {
     setIsEditAvatarPopupOpen(true);
   }
@@ -39,6 +41,7 @@ function App() {
     setIsAddPlacePopupOpen(false);
   }
 
+// По сути происходит отрисовка компонентов?
   return (
     <div className="App">
       <div className="page">
@@ -48,15 +51,15 @@ function App() {
 
 {/* Основное содержимое страницы */}
         <Main
-					onEditProfile={handleEditProfileClick}
-					onAddPlace={handleAddPlaceClick}
-					onEditAvatar={handleEditAvatarClick}
+					onEditProfile={handleEditProfileClick} // Передаём в Main функцию открытия попапа редактирования профиля
+					onAddPlace={handleAddPlaceClick} // Передаём в Main функцию открытия попапа добавления карточки
+					onEditAvatar={handleEditAvatarClick} // Передаём в Main функцию открытия попапа редактирования аватарки
 				/>
     
 {/* Подвал сайта */}
         <Footer />
 
-{/* Попап редактирования аватарки */}
+{/* Попап редактирования аватарки. isOpen и onClose - пропсы компонента попапа (булево значение: true или false) */}
         <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} />
 
 {/* Попап редактирования профиля */}

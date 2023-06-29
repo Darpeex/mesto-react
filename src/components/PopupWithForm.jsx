@@ -1,7 +1,7 @@
 // Попап обновления аватарки профиля
-export const EditAvatarPopup = ({ isOpen, onClose }) => {
-  return(
-    <PopupWithForm id="#updateAvatar" formId="#updateAvatar" title="Обновить аватар" name="updateAvatar" text="Сохранить" isOpen={isOpen} onClose={onClose} >
+export const EditAvatarPopup = ({ isOpen, onClose }) => { // Передаётся текущее значение свойств isOpen и onClose
+  return( // В строке ниже передаём значения пропсов попапа в общую структуру/компонент попапа PopupWithForm
+    <PopupWithForm id="#updateAvatar" formId="#updateAvatar" title="Обновить аватар" name="updateAvatar" text="Сохранить" isOpen={isOpen} onClose={onClose} > 
       <input
       name="avatar"
       id="linkAvatar" 
@@ -16,8 +16,8 @@ export const EditAvatarPopup = ({ isOpen, onClose }) => {
   )
 }
   // Попап редактирования профиля
-export const EditProfilePopup = ({ isOpen, onClose }) => {
-  return(
+export const EditProfilePopup = ({ isOpen, onClose }) => { // Передаётся текущее значение свойств isOpen и onClose
+  return( // В строке ниже передаём значения пропсов попапа в общую структуру/компонент попапа PopupWithForm
     <PopupWithForm id="#editProfile" formId="#editProfileForm" title="Редактировать профиль" name="editForm" text="Сохранить" isOpen={isOpen} onClose={onClose} >
       <input
         name="name"
@@ -43,8 +43,8 @@ export const EditProfilePopup = ({ isOpen, onClose }) => {
   )
 }
 // Попап добавления карточки
-export const AddPlacePopup = ({ isOpen, onClose }) => {
-  return(
+export const AddPlacePopup = ({ isOpen, onClose }) => { // Передаётся текущее значение свойств isOpen и onClose
+  return( // В строке ниже передаём значения пропсов попапа в общую структуру/компонент попапа PopupWithForm
     <PopupWithForm id="#addCard" formId="#creationForm" title="Новое место" name="creationForm" text="Создать" isOpen={isOpen} onClose={onClose} >
         <input 
           name="name"
@@ -68,8 +68,8 @@ export const AddPlacePopup = ({ isOpen, onClose }) => {
   )
 }
 
-export const ConfirmationPopup = ({ isOpen, onClose }) => {
-  return(
+export const ConfirmationPopup = ({ isOpen, onClose }) => { // Передаётся текущее значение свойств isOpen и onClose
+  return( // В строке ниже передаём значения пропсов попапа в общую структуру/компонент попапа PopupWithForm
     <PopupWithForm id="#confirmationPopup" formId="confirmationPopup" title="Вы уверены?" name="confirmationPopup" text="Да" isOpen={isOpen} onClose={onClose} >
     </PopupWithForm>
   )
@@ -77,9 +77,9 @@ export const ConfirmationPopup = ({ isOpen, onClose }) => {
 
 // Общий компонент попапов
 export function PopupWithForm(props) {
-  return (
-    <div id={props.id} className={`popup ${props.isOpen ? "popup_opened" : ""}`} onClick={props.onClose}>
-      <div className="popup__container" onClick={(e) => e.stopPropagation()} >
+  return ( // Условие попапа | isOpen ? "popup_opened" : "" | значит - если isOpen = true, попапу добавляется класс popup_opened (он открывается), иначе ничего не добавляем
+    <div id={props.id} className={`popup ${props.isOpen ? "popup_opened" : ""}`} onClick={props.onClose}> {/* onClick={props.onClose} - производит закрытие попапа по клику на оверлей */}
+      <div className="popup__container" onClick={(e) => e.stopPropagation()} > {/* .stopPropagation() - предотвращает всплытие на внутринние элементы попапа и позволяет избежать закрытия при клике на его содержимое */}
         <h2 className="popup__title">{props.title}</h2>
         <button className="popup__button popup__button_action_close" type="button" onClick={props.onClose} aria-label="Закрыть"></button>
         <form id={`popup__${props.formId}`} className={`popup__form popup__${props.name}`} name="form-popup" noValidate>
