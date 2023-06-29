@@ -31,7 +31,7 @@ export function Main({ onEditAvatar, onEditProfile, onAddPlace }) { // Пере�
         name: item.name,
         link: item.link,
         owner: item.owner,
-        linkes: item.likes
+        likes: item.likes
       }));
       setCards(cardsFromApi)
     })
@@ -66,7 +66,7 @@ export function Main({ onEditAvatar, onEditProfile, onAddPlace }) { // Пере�
               <h2 className="elements-block__name">{card.name}</h2>
               <div className="elements-block__like-container">
                 <button className="elements-block__like-button" type="button" aria-label="Лайк"></button>
-                <span className="elements-block__like-count">{card.likes}</span>
+                <span className="elements-block__like-count">{card.likes.length}</span>
               </div>
             </div>
           </article>
