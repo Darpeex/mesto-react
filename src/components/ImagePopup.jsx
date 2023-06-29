@@ -1,7 +1,6 @@
 // Попап открытия карточки
 
 export function ImagePopup({ card, onClose }) {
-  console.log(card)
   return (
     <div id="openCard" className={`popup ${card ? "popup_opened" : ""}`} onClick={onClose}> {/* onClick={props.onClose} - производит закрытие попапа по клику на оверлей */}
       <div className="popup__image-desription" onClick={(e) => e.stopPropagation()} > {/* .stopPropagation() - предотвращает всплытие на внутринние элементы попапа и позволяет избежать закрытия при клике на его содержимое */}
