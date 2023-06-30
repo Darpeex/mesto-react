@@ -4,7 +4,9 @@ import { Header } from './Header';
 import { Main } from './Main';
 import { Footer } from './Footer';
 import { ImagePopup } from './ImagePopup';
-import { EditAvatarPopup, EditProfilePopup, AddPlacePopup } from './PopupWithForm';
+import { EditAvatarPopup } from './EditAvatarPopup';
+import { EditProfilePopup } from './EditProfilePopup';
+import { AddPlacePopup } from './AddPlacePopup';
 import '../index.css'; // Файлы со стилями
 
 function App() {
