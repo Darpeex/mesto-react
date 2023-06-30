@@ -53,7 +53,7 @@ export function Main({ onEditAvatar, onEditProfile, onAddPlace, onCardClick }) {
         </div>
         <button className="profile__button profile__button_action_add" type="button" onClick={onAddPlace} aria-label="Добавить"></button> {/* onClick - по клику, вызывается функция */}
       </section>
-      {/* В компонент Card передаём массив карточек с сервера */}
+      {/* Отрисовываем каждую карточку при помощи компонента Card и возвращаем в разметку внутрь section */}
       <section id="elements" className="elements page__elements-position section">
         {cards.map(card => // Пробегаем по переданному массиву и возвращаем целые карточки при помощи разметки
           <Card key={card.id} card={card} onCardClick={onCardClick} />
