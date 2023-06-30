@@ -25,7 +25,7 @@ function App() {
       }
     };
 // Проверка, является ли хотя бы один попап открытым
-      if (isAnyPopupOpened.some(Boolean))
+      if (isAnyPopupOpened)
       {
         document.addEventListener('keydown', handleEscClose);
       }
