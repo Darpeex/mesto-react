@@ -11,17 +11,14 @@ export function Main({ onEditAvatar, onEditProfile, onAddPlace, onCardClick }) {
   const [cards, setCards] = useState([]);
 
 // Делаем запрос с сервера и устанавливаем данные в профиль
-  useEffect(() => {
+  useEffect(() => { // Promise.all, возможно, в следующем спринте попробую реализовать, если сейчас необязательно, и спасибо)
     api.getUserInfo().then(data => {
       setUserAvatar(data.avatar)
       setUserName(data.name)
       setUserDescription(data.about)
     })
     .catch(err => console.log(`Ошибка: ${err}`))
-    return () => {
-      console.log()
-    };
-  }, []); // Обновление по useContext
+  }, []);
 
 // Запрос на сервер для получения данных карточки
   useEffect(() => {
@@ -57,7 +54,11 @@ export function Main({ onEditAvatar, onEditProfile, onAddPlace, onCardClick }) {
         <button className="profile__button profile__button_action_add" type="button" onClick={onAddPlace} aria-label="Добавить"></button> {/* onClick - по клику, вызывается функция */}
       </section>
       {/* В компонент Card передаём массив карточек с сервера */}
-      <Card cards={cards} onCardClick={onCardClick} />
+      <section id="elements" className="elements page__elements-position section">
+        {cards.map(card => // Пробегаем по переданному массиву и возвращаем целые карточки при помощи разметки
+          <Card key={card.id} card={card} onCardClick={onCardClick} />
+        )}
+      </section>
     </main>
   )
 }
