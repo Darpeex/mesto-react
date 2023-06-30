@@ -4,7 +4,7 @@ import React from "react"
 export function Card({ cards, onCardClick }) {
   function handleClick(card) {
     onCardClick(card);
-  }  
+  }
 
   return (
 // Секция, блок elements
