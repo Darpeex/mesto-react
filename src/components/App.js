@@ -11,20 +11,25 @@ function App() {
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
-  const [selectedCard, setSelectedCard] = useState(false);
+  const [selectedCard, setSelectedCard] = useState({});
 
 // Отвечает за закрытие попапов при нажатии ESC
   useEffect(() => {
+    const popupArray = [isEditAvatarPopupOpen, isEditProfilePopupOpen, isAddPlacePopupOpen, selectedCard]
     const handleEscClose = (e) => {
       if (e.key === 'Escape') {
         closeAllPopups();
       }
     };
-    document.addEventListener('keydown', handleEscClose);
+// Проверка, является ли хотя бы один попап открытым
+      if (popupArray.some(Boolean))
+      {
+        document.addEventListener('keydown', handleEscClose);
+      }
     return () => {
       document.removeEventListener('keydown', handleEscClose);
     };
-  }, []);
+  }, [isAddPlacePopupOpen, isEditAvatarPopupOpen, isEditProfilePopupOpen, selectedCard]);
 
 // Функции, меняющие состояния попапов (true - открыт, false - закрыт)
   const handleEditAvatarClick = () => {
@@ -40,7 +45,7 @@ function App() {
     setIsEditAvatarPopupOpen(false);
     setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
-    setSelectedCard(false);
+    setSelectedCard({});
   }
   const handleCardClick = (card) => {
     setSelectedCard(card);
@@ -57,10 +62,9 @@ function App() {
 {/* Основное содержимое страницы */}
         <Main
 					onEditProfile={handleEditProfileClick} // Передаём в Main функцию открытия попапа редактирования профиля
-					onAddPlace={handleAddPlaceClick} // Передаём в Main функцию открытия попапа добавления карточки
-					onEditAvatar={handleEditAvatarClick} // Передаём в Main функцию открытия попапа редактирования аватарки
-					onCardClick={handleCardClick} // Передаём в Main функцию открытия попапа редактирования аватарки
-          selectedCard={selectedCard} // Передаём в Main функцию открытия попапа редактирования аватарки
+          onAddPlace={handleAddPlaceClick} // Передаём в Main функцию открытия попапа добавления карточки
+          onEditAvatar={handleEditAvatarClick} // Передаём в Main функцию открытия попапа редактирования аватарки
+          onCardClick={handleCardClick} // Прокидываем в Card обработчик handleCardClick, через компонент Main
 				/>
     
 {/* Подвал сайта */}
@@ -70,7 +74,7 @@ function App() {
         <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} />
 
 {/* Попап редактирования профиля */}
-				<EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} />
+			  <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} />
 
 {/* Попап добавления карточки */}
         <AddPlacePopup isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} />
