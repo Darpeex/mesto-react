@@ -15,23 +15,21 @@ function App() {
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState({});
 
+// Константа с условием, проверка является ли хотя бы 1 попап открытым
+  const isAnyPopupOpened = isEditAvatarPopupOpen || isEditProfilePopupOpen || isAddPlacePopupOpen || selectedCard;
 // Отвечает за закрытие попапов при нажатии ESC
   useEffect(() => {
-    const popupArray = [isEditAvatarPopupOpen, isEditProfilePopupOpen, isAddPlacePopupOpen, selectedCard]
     const handleEscClose = (e) => {
       if (e.key === 'Escape') {
         closeAllPopups();
       }
     };
 // Проверка, является ли хотя бы один попап открытым
-      if (popupArray.some(Boolean))
+      if (isAnyPopupOpened.some(Boolean))
       {
         document.addEventListener('keydown', handleEscClose);
       }
-    return () => {
-      document.removeEventListener('keydown', handleEscClose);
-    };
-  }, [isAddPlacePopupOpen, isEditAvatarPopupOpen, isEditProfilePopupOpen, selectedCard]);
+  }, [isAnyPopupOpened]);
 
 // Функции, меняющие состояния попапов (true - открыт, false - закрыт)
   const handleEditAvatarClick = () => {
