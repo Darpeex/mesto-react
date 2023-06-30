@@ -15,7 +15,7 @@ function App() {
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState({});
 
-// Константа с условием, проверка является ли хотя бы 1 попап открытым
+// Константа с условием, проверка является ли хотя бы 1 попап открытым | нагуглил, что так можно, и судя по консоли - работает
   const isAnyPopupOpened = isEditAvatarPopupOpen || isEditProfilePopupOpen || isAddPlacePopupOpen || (Object.keys(selectedCard).length !== 0);
 // Отвечает за закрытие попапов при нажатии ESC
   useEffect(() => {
