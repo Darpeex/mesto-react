@@ -1,4 +1,5 @@
 import React from 'react'; // Библиотеки реакт
+import { api } from '../utils/Api'; // Запросы на сервер
 import { useState, useEffect } from 'react'; // Хуки реакт
 import { Header } from './Header';
 import { Main } from './Main';
@@ -7,6 +8,7 @@ import { ImagePopup } from './ImagePopup';
 import { EditAvatarPopup } from './EditAvatarPopup';
 import { EditProfilePopup } from './EditProfilePopup';
 import { AddPlacePopup } from './AddPlacePopup';
+import { CurrentUserContext } from '../context/CurrentUserContext';
 import '../index.css'; // Файлы со стилями
 
 function App() {
@@ -14,6 +16,7 @@ function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState({});
+  const [currentUser, setCurrentUser] = useState('');
 
 // Константа с условием, проверка является ли хотя бы 1 попап открытым | нагуглил, что так можно, и судя по консоли - работает
   const isAnyPopupOpened = isEditAvatarPopupOpen || isEditProfilePopupOpen || isAddPlacePopupOpen || (Object.keys(selectedCard).length !== 0);
@@ -34,7 +37,16 @@ function App() {
       };
   }, [isAnyPopupOpened]);
 
-// Функции, меняющие состояния попапов (true - открыт, false - закрыт)
+// Получение данных с сервера
+useEffect(() => {
+  api.getUserInfo()
+  .then((userInfo) => {
+    setCurrentUser(userInfo);
+  })
+  .catch((err) => console.log(`Ошибка: ${err}`));
+}, []);
+
+  // Функции, меняющие состояния попапов (true - открыт, false - закрыт)
   const handleEditAvatarClick = () => {
     setIsEditAvatarPopupOpen(true);
   }
@@ -58,35 +70,37 @@ function App() {
   return (
     <div className="App">
       <div className="page">
-
+        {/* Оборачиваем в провайдер всё содержимое */}
+        <CurrentUserContext.Provider value={currentUser}>
 {/* Шапка сайта */}
-        <Header />
+          <Header />
 
 {/* Основное содержимое страницы */}
-        <Main
-					onEditProfile={handleEditProfileClick} // Передаём в Main функцию открытия попапа редактирования профиля
-          onAddPlace={handleAddPlaceClick} // Передаём в Main функцию открытия попапа добавления карточки
-          onEditAvatar={handleEditAvatarClick} // Передаём в Main функцию открытия попапа редактирования аватарки
-          onCardClick={handleCardClick} // Прокидываем в Card обработчик handleCardClick, через компонент Main
-				/>
+          <Main
+            onEditProfile={handleEditProfileClick} // Передаём в Main функцию открытия попапа редактирования профиля
+            onAddPlace={handleAddPlaceClick} // Передаём в Main функцию открытия попапа добавления карточки
+            onEditAvatar={handleEditAvatarClick} // Передаём в Main функцию открытия попапа редактирования аватарки
+            onCardClick={handleCardClick} // Прокидываем в Card обработчик handleCardClick, через компонент Main
+          />
     
 {/* Подвал сайта */}
-        <Footer />
+          <Footer />
 
 {/* Попап редактирования аватарки. isOpen и onClose - пропсы компонента попапа (булево значение: true или false) */}
-        <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} />
+          <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} />
 
 {/* Попап редактирования профиля */}
-			  <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} />
+			    <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} />
 
 {/* Попап добавления карточки */}
-        <AddPlacePopup isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} />
+          <AddPlacePopup isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} />
 
 {/* Попап подтверждения удаления */}
-        {/* <ConfirmationPopup open={isConfirmationPopupOpen} /> */}
+          {/* <ConfirmationPopup open={isConfirmationPopupOpen} /> */}
 
 {/* Попап открытия карточки */}
-        <ImagePopup card={selectedCard} onClose={closeAllPopups} />
+          <ImagePopup card={selectedCard} onClose={closeAllPopups} />
+        </CurrentUserContext.Provider>
 
       </div>
     </div>
