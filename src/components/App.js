@@ -72,22 +72,26 @@ function App() {
     setIsAddPlacePopupOpen(false);
     setSelectedCard({});
   }
+
+  // Открытие отдельной карточки
   const handleCardClick = (card) => {
     setSelectedCard(card);
   }
-
+  // Поддержка лайков и дизлайков
   function handleCardLike(card) {
     // Снова проверяем, есть ли уже лайк на этой карточке
-    const isLiked = card.likes.some(i => i._id === currentUser._id);
+    const isLiked = card.likes.some(like => like._id === currentUser._id);
     // Отправляем запрос в API и получаем обновлённые данные карточки
     api.changeLikeCardStatus(card._id, !isLiked).then((newCard) => {
         setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
     });
   } 
-  // const handleCardDelete = (card) => {
-  //   console.log(`Карточка с id = ${card._id} удалена`);
-  //   api.deleteCard(card._id);
-  // }
+  // Удаление карточки
+  function handleCardDelete(card) {
+    api.deleteCard(card._id).then(() => {
+      setCards((state) => state.filter((c) => c._id !== card._id ));
+    });
+  }
 
 // Происходит отрисовка компонентов?
   return (
@@ -106,7 +110,7 @@ function App() {
             onEditAvatar={handleEditAvatarClick} // Передаём в Main функцию открытия попапа редактирования аватарки
             onCardClick={handleCardClick} // Прокидываем в Card обработчик handleCardClick, через компонент Main
             onCardLike={handleCardLike} // Прокидываем в Card обработчик handleCardLike, через компонент Main
-            // onCardDelete={handleCardDelete} // Прокидываем в Card обработчик handleCardDelete, через компонент Main
+            onCardDelete={handleCardDelete} // Прокидываем в Card обработчик handleCardDelete, через компонент Main
           />
     
 {/* Подвал сайта */}
