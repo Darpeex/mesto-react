@@ -39,22 +39,22 @@ function App() {
   }, [isAnyPopupOpened]);
 
 // Получение данных пользователя с сервера
-useEffect(() => {
-  api.getUserInfo()
-  .then((userInfo) => {
-    setCurrentUser(userInfo);
-  })
-  .catch((err) => console.log(`Ошибка: ${err}`));
-}, []);
+  useEffect(() => {
+    api.getUserInfo()
+    .then((userInfo) => {
+      setCurrentUser(userInfo);
+    })
+    .catch((err) => console.log(`Ошибка: ${err}`));
+  }, []);
 
 // Получение данных карточек с сервера
-useEffect(() => {
-  api.getInitialCards()
-  .then((userInfo) => {
-    setCards(userInfo);
-  })
-  .catch((err) => console.log(`Ошибка: ${err}`));
-}, []);
+  useEffect(() => {
+    api.getInitialCards()
+    .then((userInfo) => {
+      setCards(userInfo);
+    })
+    .catch((err) => console.log(`Ошибка: ${err}`));
+  }, []);
 
   // Функции, меняющие состояния попапов (true - открыт, false - закрыт)
   const handleEditAvatarClick = () => {
