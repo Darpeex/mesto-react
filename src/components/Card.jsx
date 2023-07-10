@@ -8,7 +8,7 @@ export function Card({ card, onCardClick }) {
 
   return (
 // Секция, блок elements
-    <article className="elements-block" key={card.id}>
+    <article className="elements-block" key={card._id}>
       <img src={card.link} alt={card.name} onClick={() => handleClick(card)} className="elements-block__image"/>
       <button className="elements-block__delete-button"></button>
       <div className="elements-block__text">

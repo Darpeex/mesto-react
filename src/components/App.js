@@ -9,6 +9,7 @@ import { EditAvatarPopup } from './EditAvatarPopup';
 import { EditProfilePopup } from './EditProfilePopup';
 import { AddPlacePopup } from './AddPlacePopup';
 import { CurrentUserContext } from '../context/CurrentUserContext';
+import { CardsContext } from '../context/CardsContext';
 import '../index.css'; // Файлы со стилями
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState({});
   const [currentUser, setCurrentUser] = useState('');
+  const [cards, setCards] = useState([]);
 
 // Константа с условием, проверка является ли хотя бы 1 попап открытым | нагуглил, что так можно, и судя по консоли - работает
   const isAnyPopupOpened = isEditAvatarPopupOpen || isEditProfilePopupOpen || isAddPlacePopupOpen || (Object.keys(selectedCard).length !== 0);
@@ -37,11 +39,20 @@ function App() {
       };
   }, [isAnyPopupOpened]);
 
-// Получение данных с сервера
+// Получение данных пользователя с сервера
 useEffect(() => {
   api.getUserInfo()
   .then((userInfo) => {
     setCurrentUser(userInfo);
+  })
+  .catch((err) => console.log(`Ошибка: ${err}`));
+}, []);
+
+// Получение данных карточек с сервера
+useEffect(() => {
+  api.getInitialCards()
+  .then((userInfo) => {
+    setCards(userInfo);
   })
   .catch((err) => console.log(`Ошибка: ${err}`));
 }, []);
@@ -72,6 +83,7 @@ useEffect(() => {
       <div className="page">
         {/* Оборачиваем в провайдер всё содержимое */}
         <CurrentUserContext.Provider value={currentUser}>
+        <CardsContext.Provider value={cards}>
 {/* Шапка сайта */}
           <Header />
 
@@ -100,6 +112,7 @@ useEffect(() => {
 
 {/* Попап открытия карточки */}
           <ImagePopup card={selectedCard} onClose={closeAllPopups} />
+        </CardsContext.Provider>
         </CurrentUserContext.Provider>
 
       </div>

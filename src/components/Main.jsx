@@ -1,27 +1,12 @@
 // Основное содержимое страницы
-import { useState, useEffect, useContext } from 'react';
-import { api } from '../utils/Api';
+import { useContext } from 'react';
 import { Card } from './Card';
 import { CurrentUserContext } from '../context/CurrentUserContext';
+import { CardsContext } from '../context/CardsContext';
 
 export function Main({ onEditAvatar, onEditProfile, onAddPlace, onCardClick }) { // Передаются функции открытия попапов из App.js
   const userInfo = useContext(CurrentUserContext);
-  const [cards, setCards] = useState([]);
-
-// Запрос на сервер для получения данных карточки
-  useEffect(() => {
-    api.getInitialCards().then(data => {
-      const cardsFromApi = data.map(item => ({
-        id: item._id,
-        name: item.name,
-        link: item.link,
-        owner: item.owner,
-        likes: item.likes
-      }));
-      setCards(cardsFromApi)
-    })
-    .catch(err => console.log(`Ошибка: ${err}`))
-  }, []);
+  const cardData = useContext(CardsContext);
 
   return (
     <main className="content">
@@ -43,8 +28,8 @@ export function Main({ onEditAvatar, onEditProfile, onAddPlace, onCardClick }) {
       </section>
       {/* Отрисовываем каждую карточку при помощи компонента Card и возвращаем в разметку внутрь section */}
       <section id="elements" className="elements page__elements-position section">
-        {cards.map(card => // Пробегаем по переданному массиву и возвращаем целые карточки при помощи разметки
-          <Card key={card.id} card={card} onCardClick={onCardClick} />
+        {cardData.map(card => // Пробегаем по переданному массиву и возвращаем целые карточки при помощи разметки
+          <Card key={card._id} card={card} onCardClick={onCardClick} />
         )}
       </section>
     </main>
