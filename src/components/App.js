@@ -76,7 +76,20 @@ function App() {
     setSelectedCard(card);
   }
 
-// По сути происходит отрисовка компонентов?
+  function handleCardLike(card) {
+    // Снова проверяем, есть ли уже лайк на этой карточке
+    const isLiked = card.likes.some(i => i._id === currentUser._id);
+    // Отправляем запрос в API и получаем обновлённые данные карточки
+    api.changeLikeCardStatus(card._id, !isLiked).then((newCard) => {
+        setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
+    });
+  } 
+  // const handleCardDelete = (card) => {
+  //   console.log(`Карточка с id = ${card._id} удалена`);
+  //   api.deleteCard(card._id);
+  // }
+
+// Происходит отрисовка компонентов?
   return (
     <div className="App">
       <div className="page">
@@ -92,6 +105,8 @@ function App() {
             onAddPlace={handleAddPlaceClick} // Передаём в Main функцию открытия попапа добавления карточки
             onEditAvatar={handleEditAvatarClick} // Передаём в Main функцию открытия попапа редактирования аватарки
             onCardClick={handleCardClick} // Прокидываем в Card обработчик handleCardClick, через компонент Main
+            onCardLike={handleCardLike} // Прокидываем в Card обработчик handleCardLike, через компонент Main
+            // onCardDelete={handleCardDelete} // Прокидываем в Card обработчик handleCardDelete, через компонент Main
           />
     
 {/* Подвал сайта */}
