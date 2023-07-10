@@ -52,6 +52,7 @@ function App() {
       setCurrentUser(userInfo); // ...где нет остальных полей, поля будут потеряны при обновлении состояния currentUser
       closeAllPopups();
     })
+    .catch((err) => console.log(`Ошибка: ${err}`)); 
   }
 // Обновление аватарки профиля
   function handleUpdateAvatar({ avatar }) {
@@ -59,6 +60,7 @@ function App() {
       setCurrentUser(userInfo);
       closeAllPopups();
     })
+    .catch((err) => console.log(`Ошибка: ${err}`)); 
   }
 
 // Получение данных карточек с сервера
@@ -98,7 +100,8 @@ function App() {
     // Отправляем запрос в API и получаем обновлённые данные карточки
     api.changeLikeCardStatus(card._id, !isLiked).then((newCard) => {
         setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
-    });
+    })    
+    .catch((err) => console.log(`Ошибка: ${err}`)); 
   } 
   // Удаление карточки
   function handleCardDelete(card) {
@@ -113,6 +116,7 @@ function App() {
       setCards([newCard, ...cards]); 
       closeAllPopups();
     })
+    .catch((err) => console.log(`Ошибка: ${err}`)); 
   }
 
 // Происходит отрисовка компонентов?
