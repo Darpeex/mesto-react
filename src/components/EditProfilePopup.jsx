@@ -12,7 +12,7 @@ export const EditProfilePopup = ({ onUpdateUser, isOpen, onClose }) => { // Пе
   React.useEffect(() => {
     setName(currentUser.name ?? '');
     setDescription(currentUser.about ?? '');
-  }, [currentUser]); 
+  }, [currentUser, isOpen]); 
 
   const handleSubmit = (evt) => {
     evt.preventDefault(); // Запрещаем браузеру переходить по адресу формы

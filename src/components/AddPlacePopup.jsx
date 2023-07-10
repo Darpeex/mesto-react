@@ -6,6 +6,11 @@ export const AddPlacePopup = ({ onAddPlace, isOpen, onClose }) => { // Пере�
   const [name, setName] = React.useState('');
   const [link, setLink] = React.useState('');
 
+  React.useEffect(() => {
+    setName('');
+    setLink('');
+  }, [isOpen]);
+  
   const handleSubmit = (evt) => {
     evt.preventDefault(); // Запрещаем браузеру переходить по адресу формы
     onAddPlace({ name, link }); // Передаём значения управляемых компонентов во внешний обработчик
