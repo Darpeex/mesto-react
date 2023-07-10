@@ -5,7 +5,7 @@ import { CurrentUserContext } from '../context/CurrentUserContext';
 import { CardsContext } from '../context/CardsContext';
 
 export function Main({ onEditAvatar, onEditProfile, onAddPlace, onCardClick }) { // Передаются функции открытия попапов из App.js
-  const userInfo = useContext(CurrentUserContext);
+  const currentUser = useContext(CurrentUserContext);
   const cardData = useContext(CardsContext);
 
   return (
@@ -15,12 +15,12 @@ export function Main({ onEditAvatar, onEditProfile, onAddPlace, onCardClick }) {
       <section className="profile page__profile-position section">
         <div className="profile__info">
           <div className="profile__avatar">
-            <img className="profile__avatar-image" src={userInfo.avatar} alt="Аватарка"/>
+            <img className="profile__avatar-image" src={currentUser.avatar} alt="Аватарка"/>
             <button className="profile__avatar-button" type="button" onClick={onEditAvatar} aria-label="Обновить аватарку"></button> {/* onClick - по клику, вызывается функция */}
           </div>
           <div className="profile__content">
-            <h1 className="profile__name">{userInfo.name}</h1>
-            <p className="profile__activity">{userInfo.about}</p>
+            <h1 className="profile__name">{currentUser.name}</h1>
+            <p className="profile__activity">{currentUser.about}</p>
             <button className="profile__button profile__button_action_edit" type="button" onClick={onEditProfile} aria-label="Редактировать"></button> {/* onClick - по клику, вызывается функция */}
           </div>
         </div>

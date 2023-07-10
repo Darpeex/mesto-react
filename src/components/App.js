@@ -30,8 +30,7 @@ function App() {
       }
     };
 // Проверка, является ли хотя бы один попап открытым
-      if (isAnyPopupOpened)
-      {
+      if (isAnyPopupOpened) {
         document.addEventListener('keydown', handleEscClose);
       }
       return () => {
