@@ -106,6 +106,14 @@ function App() {
       setCards((state) => state.filter((c) => c._id !== card._id ));
     });
   }
+  // Добавление карточки
+  function handleAddPlaceSubmit({ name, link }) {
+    const data = { name, link }
+    api.addNewCard(data).then((newCard) => {
+      setCards([newCard, ...cards]); 
+      closeAllPopups();
+    })
+  }
 
 // Происходит отрисовка компонентов?
   return (
@@ -137,7 +145,7 @@ function App() {
 			    <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser} />
 
 {/* Попап добавления карточки */}
-          <AddPlacePopup isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} />
+          <AddPlacePopup isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} onAddPlace={handleAddPlaceSubmit}/>
 
 {/* Попап подтверждения удаления */}
           {/* <ConfirmationPopup open={isConfirmationPopupOpen} /> */}
