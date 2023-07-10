@@ -2,7 +2,7 @@
 
 export function ImagePopup({ card, onClose }) {
   return ( // В строке ниже условие | Object.keys(card).length !== 0 ? "popup_opened" : "" | если значение card не пустое, открываем попап, иначе - оставляем закрытым
-    <div id="openCard" className={`popup ${Object.keys(card).length !== 0 ? "popup_opened" : ""}`} onClick={onClose}> {/* onClick={props.onClose} - производит закрытие попапа по клику на оверлей */}
+    <div id="openCard" name="openCardForm" className={`popup ${Object.keys(card).length !== 0 ? "popup_opened" : ""}`} onClick={onClose}> {/* onClick={props.onClose} - производит закрытие попапа по клику на оверлей */}
       <div className="popup__image-desription" onClick={(e) => e.stopPropagation()} > {/* .stopPropagation() - предотвращает всплытие на внутринние элементы попапа и позволяет избежать закрытия при клике на его содержимое */}
         <img className="popup__image-card" src={card.link} alt={card.name} />
         <p className="popup__image-subtitle">{card.name}</p>
