@@ -46,10 +46,16 @@ function App() {
     })
     .catch((err) => console.log(`Ошибка: ${err}`));
   }, []);
-
-  // Обновление данных пользователя на сервере
+// Обновление данных пользователя на сервере
   function handleUpdateUser({ name, description }) {
-    api.setUserInfo({ name, description }).then((userInfo) => {
+    api.setUserInfo({ name, description }).then((userInfo) => { // важно передавать userInfo, потому что если в функцию передавать объект { name, description }...
+      setCurrentUser(userInfo); // ...где нет остальных полей, поля будут потеряны при обновлении состояния currentUser
+      closeAllPopups();
+    })
+  }
+// Обновление аватарки профиля
+  function handleUpdateAvatar({ avatar }) {
+    api.editAvatar({ avatar }).then((userInfo) => {
       setCurrentUser(userInfo);
       closeAllPopups();
     })
@@ -125,7 +131,7 @@ function App() {
           <Footer />
 
 {/* Попап редактирования аватарки. isOpen и onClose - пропсы компонента попапа (булево значение: true или false) */}
-          <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} />
+          <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} onUpdateAvatar={handleUpdateAvatar} />
 
 {/* Попап редактирования профиля */}
 			    <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser} />
