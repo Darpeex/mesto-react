@@ -34,13 +34,13 @@ class Api {
   }
 
   // Редактирование профиля
-  setUserInfo(userInfo) {
+  setUserInfo({ name, description }) {
     return fetch(`${this.#url}/users/me`, {
       method: 'PATCH',
       headers: this.#headers,
       body: JSON.stringify({
-        name: userInfo.name, // имя
-        about: userInfo.about // о себе
+        name: name, // имя
+        about: description // о себе
       })
     })
     .then(this.#handleResponse)

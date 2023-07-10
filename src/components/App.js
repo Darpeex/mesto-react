@@ -47,6 +47,14 @@ function App() {
     .catch((err) => console.log(`Ошибка: ${err}`));
   }, []);
 
+  // Обновление данных пользователя на сервере
+  function handleUpdateUser({ name, description }) {
+    api.setUserInfo({ name, description }).then((userInfo) => {
+      setCurrentUser(userInfo);
+      closeAllPopups();
+    })
+  }
+
 // Получение данных карточек с сервера
   useEffect(() => {
     api.getInitialCards()
@@ -120,7 +128,7 @@ function App() {
           <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} />
 
 {/* Попап редактирования профиля */}
-			    <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} />
+			    <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser} />
 
 {/* Попап добавления карточки */}
           <AddPlacePopup isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} />
