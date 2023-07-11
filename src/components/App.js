@@ -107,7 +107,8 @@ function App() {
   function handleCardDelete(card) {
     api.deleteCard(card._id).then(() => {
       setCards((state) => state.filter((c) => c._id !== card._id ));
-    });
+    })
+    .catch((err) => console.log(`Ошибка: ${err}`)); 
   }
   // Добавление карточки
   function handleAddPlaceSubmit({ name, link }) {
