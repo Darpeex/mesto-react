@@ -1,23 +1,16 @@
 // Попап обновления аватарки профиля
 import React from "react";
 import { PopupWithForm } from "./PopupWithForm"
-// import { CurrentUserContext } from "../context/CurrentUserContext" - кажется, удобнее как в проекте "mesto" - без записи ссылки в попап (Разумеется, если можно - удалю комменты, иначе верну)
 
-export const EditAvatarPopup = ({ onUpdateAvatar, isOpen, onClose }) => { // Передаётся текущее значение свойств isOpen и onClose const currentUser = React.useContext(CurrentUserContext); // Подписка на контекст
+export const EditAvatarPopup = ({ onUpdateAvatar, isOpen, onClose }) => { // Передаётся текущее значение свойств isOpen и onClose
   const [avatar, setAvatar] = React.useState('');
-  // const currentUser = React.useContext(CurrentUserContext); // Подписка на контекст 
-
-// После загрузки текущего пользователя из API его данные будут использованы в управляемых компонентах.
-  // React.useEffect(() => {
-  //   setAvatar(currentUser.avatar ?? '');
-  // }, [currentUser]); 
 
   const handleSubmit = (evt) => {
     evt.preventDefault(); // Запрещаем браузеру переходить по адресу формы
     onUpdateAvatar({ avatar }); // Передаём значения управляемых компонентов во внешний обработчик
   }
 
-  function handleAvatarChange(e) {
+  function handleAvatarChange(e) { // Этот метод будет обновлять данные в стейт, чтобы в него попадало самое новое введённое значение
     setAvatar(e.target.value);
   }
 
@@ -25,8 +18,8 @@ export const EditAvatarPopup = ({ onUpdateAvatar, isOpen, onClose }) => { // П�
     <PopupWithForm id="updateAvatar" formId="updateAvatar" title="Обновить аватар" name="updateAvatar" text="Сохранить" isOpen={isOpen} onClose={onClose} onSubmit={handleSubmit}> 
       <input
       name="avatar"
-      value={avatar}
-      onChange={handleAvatarChange}
+      value={avatar} // значение поля из стейта
+      onChange={handleAvatarChange} // Срабатывает каждый раз, когда в поле ввода вносятся изменения
       id="linkAvatar" 
       className="popup__form-input popup__form-input_field_avatar"
       placeholder="Ссылка на картинку"

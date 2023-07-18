@@ -20,34 +20,34 @@ function App() {
   const [currentUser, setCurrentUser] = useState('');
   const [cards, setCards] = useState([]);
 
-// Константа с условием, проверка является ли хотя бы 1 попап открытым | нагуглил, что так можно, и судя по консоли - работает
+// Константа с условием (в конце) - проверка является ли хотя бы 1 попап открытым
   const isAnyPopupOpened = isEditAvatarPopupOpen || isEditProfilePopupOpen || isAddPlacePopupOpen || (Object.keys(selectedCard).length !== 0);
 // Отвечает за закрытие попапов при нажатии ESC
   useEffect(() => {
     const handleEscClose = (e) => {
-      if (e.key === 'Escape') {
+      if (e.key === 'Escape') { // e - событие, если равняется нажатием на клавиатуре клавиши Esc - открытые попапы закрываются
         closeAllPopups();
       }
     };
 // Проверка, является ли хотя бы один попап открытым
       if (isAnyPopupOpened) {
-        document.addEventListener('keydown', handleEscClose);
+        document.addEventListener('keydown', handleEscClose); // Если один из попапов открыт, добавляется слушатель и попап закрывается на Esc
       }
       return () => {
-        document.removeEventListener('keydown', handleEscClose);
+        document.removeEventListener('keydown', handleEscClose); // Если попапы закрыты, удаляется слушатель и попап закрывается на Esc
       };
   }, [isAnyPopupOpened]);
 
 // Получение данных пользователя с сервера
   useEffect(() => {
-    api.getUserInfo()
+    api.getUserInfo() // Запрос данных пользователя с сервера
     .then((userInfo) => {
-      setCurrentUser(userInfo);
+      setCurrentUser(userInfo); // Установка данных пользователя с сервера в стейт
     })
     .catch((err) => console.log(`Ошибка: ${err}`));
   }, []);
 // Обновление данных пользователя на сервере
-  function handleUpdateUser({ name, description }) {
+  function handleUpdateUser({ name, description }) { // данные берутся из инпутов после отправки формы (submit)
     api.setUserInfo({ name, description }).then((userInfo) => { // важно передавать userInfo, потому что если в функцию передавать объект { name, description }...
       setCurrentUser(userInfo); // ...где нет остальных полей, поля будут потеряны при обновлении состояния currentUser
       closeAllPopups();
@@ -55,8 +55,8 @@ function App() {
     .catch((err) => console.log(`Ошибка: ${err}`)); 
   }
 // Обновление аватарки профиля
-  function handleUpdateAvatar({ avatar }) {
-    api.editAvatar({ avatar }).then((userInfo) => {
+  function handleUpdateAvatar({ avatar }) { // данные берутся из поля попапа после отправки формы (submit)
+    api.editAvatar({ avatar }).then((userInfo) => { // передаётся обновлённые данные userInfo
       setCurrentUser(userInfo);
       closeAllPopups();
     })
@@ -65,9 +65,9 @@ function App() {
 
 // Получение данных карточек с сервера
   useEffect(() => {
-    api.getInitialCards()
+    api.getInitialCards() // получаем карточки с сервера
     .then((userInfo) => {
-      setCards(userInfo);
+      setCards(userInfo); // обновляем стейт карточек
     })
     .catch((err) => console.log(`Ошибка: ${err}`));
   }, []);
@@ -103,14 +103,14 @@ function App() {
     })    
     .catch((err) => console.log(`Ошибка: ${err}`)); 
   } 
-  // Удаление карточки
+// Удаление карточки
   function handleCardDelete(card) {
     api.deleteCard(card._id).then(() => {
       setCards((state) => state.filter((c) => c._id !== card._id ));
     })
     .catch((err) => console.log(`Ошибка: ${err}`)); 
   }
-  // Добавление карточки
+// Добавление карточки
   function handleAddPlaceSubmit({ name, link }) {
     const data = { name, link }
     api.addNewCard(data).then((newCard) => {
@@ -125,8 +125,8 @@ function App() {
     <div className="App">
       <div className="page">
         {/* Оборачиваем в провайдер всё содержимое */}
-        <CurrentUserContext.Provider value={currentUser}>
-        <CardsContext.Provider value={cards}>
+        <CurrentUserContext.Provider value={currentUser}> {/* контекст становится доступен всем компонентам */}
+        <CardsContext.Provider value={cards}> {/* ... глобальный контекст */}
 {/* Шапка сайта */}
           <Header />
 

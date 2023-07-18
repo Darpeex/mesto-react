@@ -3,17 +3,17 @@ import React from "react"
 import { CurrentUserContext } from '../context/CurrentUserContext';
 
 export function Card({ card, onCardClick, onCardLike, onCardDelete }) {
-  const currentUser = React.useContext(CurrentUserContext);  
+  const currentUser = React.useContext(CurrentUserContext); // Подписываемся на контекст пользователя
   const isOwn = card.owner._id === currentUser._id; // Определяем, являемся ли мы владельцем текущей карточки
   const isLiked = card.likes.some(i => i._id === currentUser._id); // Определяем, поставлен ли лайк текущим пользователем
 
-  function handleClick() {
+  function handleClick() { // открытие карточки при нажатии на картиннку
     onCardClick(card);
   }
-  function handleLikeClick() {
+  function handleLikeClick() { // отвечает за лайк
     onCardLike(card);
   }
-  function handleDeleteClick() {
+  function handleDeleteClick() { // удаление карточки
     onCardDelete(card);
   }
 
@@ -21,7 +21,7 @@ export function Card({ card, onCardClick, onCardLike, onCardDelete }) {
 // Секция, блок elements
     <article className="elements-block" key={card._id}>
       <img src={card.link} alt={card.name} onClick={() => handleClick(card)} className="elements-block__image"/>
-      {isOwn && <button className="elements-block__delete-button" onClick={handleDeleteClick}></button>}
+      {isOwn && <button className="elements-block__delete-button" onClick={handleDeleteClick}></button>} {/* Если карточка наша isOwn - добавляется корзина = кнока удаления */}
       <div className="elements-block__text">
         <h2 className="elements-block__name">{card.name}</h2>
         <div className="elements-block__like-container">

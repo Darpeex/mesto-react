@@ -95,7 +95,7 @@ class Api {
     .then(this.#handleResponse)
   }
 
-  // Отправляем запрос на добавление лайка, если параметр - true, на удаление, если false
+  // Если isLiked = true - запрос на удаление, если false - постановка лайка
   changeLikeCardStatus(id, isLiked) {
     const method = isLiked ? 'PUT' : 'DELETE';
       return fetch(`${this.#url}/cards/${id}/likes`, {

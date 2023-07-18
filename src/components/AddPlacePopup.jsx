@@ -3,10 +3,10 @@ import React from "react";
 import { PopupWithForm } from "./PopupWithForm"
 
 export const AddPlacePopup = ({ onAddPlace, isOpen, onClose }) => { // Передаётся текущее значение свойств isOpen и onClose
-  const [name, setName] = React.useState('');
-  const [link, setLink] = React.useState('');
+  const [name, setName] = React.useState(''); // Состояние имени
+  const [link, setLink] = React.useState(''); // Состояние ссылки
 
-  React.useEffect(() => {
+  React.useEffect(() => { // ресет - при изменении состояния попапа поля формы чистятся
     setName('');
     setLink('');
   }, [isOpen]);
@@ -15,10 +15,10 @@ export const AddPlacePopup = ({ onAddPlace, isOpen, onClose }) => { // Пере�
     evt.preventDefault(); // Запрещаем браузеру переходить по адресу формы
     onAddPlace({ name, link }); // Передаём значения управляемых компонентов во внешний обработчик
   }
-  function handleNameChange(e) {
+  function handleNameChange(e) { // Следим за изменениями в поле name и подставляем в стейт
     setName(e.target.value);
   }
-  function handleLinkChange(e) {
+  function handleLinkChange(e) { // Следим за изменениями в поле link и подставляем в стейт
     setLink(e.target.value);
   }
   
@@ -27,8 +27,8 @@ export const AddPlacePopup = ({ onAddPlace, isOpen, onClose }) => { // Пере�
         <input 
           name="name"
           id="name-card"
-          value={name}
-          onChange={handleNameChange}
+          value={name} // значение стейта
+          onChange={handleNameChange} // Функция срабатывает каждый раз, когда в поле ввода вносятся изменения
           className="popup__form-input popup__form-input_field_nameCard"
           type="text"
           placeholder="Название"
@@ -39,8 +39,8 @@ export const AddPlacePopup = ({ onAddPlace, isOpen, onClose }) => { // Пере�
         <input
           name="link"
           id="link"
-          value={link}
-          onChange={handleLinkChange}
+          value={link} // значение стейта
+          onChange={handleLinkChange} // Функция срабатывает каждый раз, когда в поле ввода вносятся изменения
           className="popup__form-input popup__form-input_field_srcImg"
           placeholder="Ссылка на картинку"
           type="url"

@@ -1,5 +1,4 @@
 // Подвал сайта
-
 export function Footer() {
   return (
     <footer className="footer page__footer-position section">
